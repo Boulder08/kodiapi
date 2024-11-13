@@ -111,7 +111,7 @@ def refresh_all_movies():
             
             # Refresh the movie metadata
             result = refresh_movie(movie_id)
-            print(f"Refreshing movie '{movie_title}' (ID: {movie_id}): {result}")
+            print(f"Refreshing movie '{movie_title}': {result}")
             time.sleep(0.25)
 
     except Exception as e:
@@ -132,7 +132,7 @@ def refresh_tvshow_with_episodes(tvshow_id, tvshow_label=""):
     """Refresh a single TV show and all its episodes."""
     # Refresh the TV show metadata
     result = refresh_tvshow(tvshow_id)
-    print(f"Refreshing TV show '{tvshow_label}' (ID: {tvshow_id}): {result}")
+    print(f"Refreshing TV show '{tvshow_label}': {result}")
     
     # Retrieve all episodes for the specified TV show
     payload = {
@@ -145,7 +145,7 @@ def refresh_tvshow_with_episodes(tvshow_id, tvshow_label=""):
     episodes = episodes_response.get("result", {}).get("episodes", [])
     
     if not episodes:
-        print(f"No episodes found for TV show '{tvshow_label}' (ID: {tvshow_id}). Response received:", episodes_response)
+        print(f"No episodes found for TV show '{tvshow_label}'. Response received:", episodes_response)
         return
 
     # Refresh each episode individually
@@ -161,7 +161,7 @@ def refresh_tvshow_with_episodes(tvshow_id, tvshow_label=""):
             "id": 1
         }
         episode_result = send_kodi_request(payload).get("result", "Failed")
-        print(f" - Refreshing episode '{episode_label}' (ID: {episode_id}): {episode_result}")
+        print(f" - Refreshing episode '{episode_label}': {episode_result}")
         time.sleep(0.25)
 
 
@@ -191,7 +191,7 @@ def refresh_all_tvshows():
             
             # Refresh the TV show metadata
             result = refresh_tvshow(tvshow_id)
-            print(f"Refreshing TV show '{tvshow_title}' (ID: {tvshow_id}): {result}")
+            print(f"Refreshing TV show '{tvshow_title}': {result}")
             
             # Get episodes for the current TV show
             payload = {
@@ -204,7 +204,7 @@ def refresh_all_tvshows():
             episodes = episodes_response.get("result", {}).get("episodes", [])
             
             if not episodes:
-                print(f"No episodes found for TV show '{tvshow_title}' (ID: {tvshow_id}). Response received:", episodes_response)
+                print(f"No episodes found for TV show '{tvshow_title}'. Response received:", episodes_response)
                 continue
 
             # Refresh each episode in the current TV show
@@ -219,7 +219,7 @@ def refresh_all_tvshows():
                     "id": 1
                 }
                 episode_result = send_kodi_request(payload).get("result", "Failed")
-                print(f" - Refreshing episode '{episode_title}' (ID: {episode_id}): {episode_result}")
+                print(f" - Refreshing episode '{episode_title}': {episode_result}")
                 time.sleep(0.25)
 
     except Exception as e:
@@ -262,7 +262,7 @@ def refresh_all_music_videos():
             
             # Refresh the music video metadata
             result = refresh_music_video(music_video_id)
-            print(f"Refreshing music video '{music_video_title}' (ID: {music_video_id}): {result}")
+            print(f"Refreshing music video '{music_video_title}': {result}")
             time.sleep(0.25)
 
     except Exception as e:
@@ -339,7 +339,7 @@ def refresh_menu():
                 print("No movies found.")
                 continue
             for idx, movie in enumerate(movies):
-                print(f"{idx + 1}. {movie['title']} (ID: {movie['movieid']})")
+                print(f"{idx + 1}. {movie['title']}")
             print(f"{len(movies) + 1}. Exit")
             choice = int(input("Enter the number of the movie to refresh: "))
             if choice == len(movies) + 1:
@@ -355,7 +355,7 @@ def refresh_menu():
                 print("No TV shows found.")
                 continue
             for idx, tvshow in enumerate(tvshows):
-                print(f"{idx + 1}. {tvshow['label']} (ID: {tvshow['tvshowid']})")
+                print(f"{idx + 1}. {tvshow['label']}")
             choice = int(input("Enter the number of the TV show to refresh (or 0 to exit): ")) - 1
             if choice >= 0:
                 tvshow_id = tvshows[choice]["tvshowid"]
@@ -369,7 +369,7 @@ def refresh_menu():
                 print("No music videos found.")
                 continue
             for idx, mv in enumerate(music_videos):
-                print(f"{idx + 1}. {mv['title']} (ID: {mv['musicvideoid']})")
+                print(f"{idx + 1}. {mv['title']}")
             print(f"{len(music_videos) + 1}. Exit")
             choice = int(input("Enter the number of the music video to refresh: "))
             if choice == len(music_videos) + 1:
@@ -412,7 +412,7 @@ def delete_menu():
                 print("No movies found.")
                 continue
             for idx, movie in enumerate(movies):
-                print(f"{idx + 1}. {movie['title']} (ID: {movie['movieid']})")
+                print(f"{idx + 1}. {movie['title']}")
             print(f"{len(movies) + 1}. Exit")
             choice = int(input("Enter the number of the movie to delete: "))
             if choice == len(movies) + 1:
@@ -428,7 +428,7 @@ def delete_menu():
                 print("No TV shows found.")
                 continue
             for idx, tvshow in enumerate(tvshows):
-                print(f"{idx + 1}. {tvshow['title']} (ID: {tvshow['tvshowid']})")
+                print(f"{idx + 1}. {tvshow['title']}")
             print(f"{len(tvshows) + 1}. Exit")
             choice = int(input("Enter the number of the TV show to delete: "))
             if choice == len(tvshows) + 1:
